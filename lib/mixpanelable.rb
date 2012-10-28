@@ -20,14 +20,15 @@ if defined?(ActionController) and defined?(ActionController::Base)
     end
 
     def set_mixpanable_guest_uuid
-      Thread.current[:mixpanelable_guest_uuid] = mixpanable_guest_uuid
+      Thread.current[:mixpanelable_guest_uuid] = mixpanelable_guest_uuid
       yield
     ensure
       Thread.current[:mixpanelable_guest_uuid] = nil
     end
 
-    def mixpanable_guest_uuid
+    def mixpanelable_guest_uuid
       cookies[:mixpanelable_guest_uuid] ||= { value: SecureRandom.uuid, expires: 1.year.from_now }
+      cookies[:mixpanelable_guest_uuid]
     end
   end
 end
