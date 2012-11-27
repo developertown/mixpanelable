@@ -25,19 +25,27 @@ describe Mixpanelable::EventBuilder do
 
     context "when the event is not tied to an active record and a current user exists" do
       it "should return an id based on the user model and user id" do
-        Thread.current[:mixpanelable_current_user] = User.new
-        event_builder = Mixpanelable::EventBuilder.new
+        begin
+          Thread.current[:mixpanelable_current_user] = User.new
+          event_builder = Mixpanelable::EventBuilder.new
 
-        event_builder.distinct_id.should == 'User - 1'
+          event_builder.distinct_id.should == 'User - 1'
+        ensure
+          Thread.current[:mixpanelable_current_user] = nil
+        end
       end
     end
 
     context "when the event cannot be tied to a user or active record" do
       it "should return the guest's uuid as saved in the current thread" do
-        Thread.current[:mixpanelable_guest_uuid] = 'a uuid'
-        event_builder = Mixpanelable::EventBuilder.new
+        begin
+          Thread.current[:mixpanelable_guest_uuid] = 'a uuid'
+          event_builder = Mixpanelable::EventBuilder.new
 
-        event_builder.distinct_id.should == 'a uuid'
+          event_builder.distinct_id.should == 'a uuid'
+        ensure
+          Thread.current[:mixpanelable_guest_uuid] = nil
+        end
       end
     end
   end
