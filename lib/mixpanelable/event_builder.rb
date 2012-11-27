@@ -2,7 +2,7 @@ module Mixpanelable
   class EventBuilder
     attr_reader :active_record, :name, :properties
 
-    def initialize(args)
+    def initialize(args = {})
       @active_record = args[:active_record]
       @name = args[:name]
       @properties = args[:properties]
@@ -26,6 +26,8 @@ module Mixpanelable
 
   private
 
+    # There's no explicit requirement that `active_record` inherits from ActiveRecord::Base.
+    # The only real requirement is an id method.
     def distinct_id_for(active_record)
       "#{active_record.class.name} - #{active_record.id}"
     end
