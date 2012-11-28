@@ -18,6 +18,13 @@ module Mixpanelable
       Thread.current[:mixpanelable_user_agent] = nil
     end
 
+    def set_mixpanelable_request_uuid
+      Thread.current[:mixpanelable_request_uuid] = SecureRandom.uuid
+      yield
+    ensure
+      Thread.current[:mixpanelable_request_uuid] = nil
+    end
+
     def set_mixpanelable_guest_uuid
       Thread.current[:mixpanelable_guest_uuid] = mixpanelable_guest_uuid
       yield

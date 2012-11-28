@@ -53,6 +53,16 @@ track_event_for(record, 'Event Name', {
 
 The event will be tied to the record's type (i.e. class name) and id. This is *important* if you want to create funnels that can't be tied back to a user (see examples below). Get creative!
 
+### Tracking an event tied to the request
+
+````
+track_event_for_request('Event Name', {
+  'A property' => 'Property value'
+})
+````
+
+Mixpanelable will tie the event to a unique uuid associated with the request. See Examples for potential use cases.
+
 Examples
 --------
 
@@ -129,6 +139,23 @@ class Invoice < ActiveRecord::Base
 Back in Mixpanel, a funnel can be created that tracks the conversion from Sent -> Received -> Paid. I can then answer questions like, how often are invoices being ignored by customers? What percentage of invoices are getting paid? And this data can be tracked over time to see improvements or regressions.
 
 Note that if these events are tied to the user who performed the action (instead of the invoice), then we wouldn't be able to create the funnel.
+
+### Frequency of events with respect to requests
+
+Sometimes it's useful to see the frequency at which an event occurs in proportion to the number of requests. Mixpanelable makes this possible through `track_event_for_request`.
+
+Recently, I wanted to create a funnel that showed the proportion of cache writes to page hits for a list of events. In my view, I wrote
+
+````
+<% track_event_for_request('Events List Hit') %>
+
+<% cache(@user) do %>
+  <% track_event_for_request('Events List Cache Write')
+  <% # My events html... %>
+<% end %>
+````
+
+Simple. Mixpanel will receive one or both events depending on whether the cache has expired when hit. Then, I can create a funnel to track the proportion over time.
 
 Todos
 -----
