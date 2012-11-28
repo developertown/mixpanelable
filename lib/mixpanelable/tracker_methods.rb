@@ -17,6 +17,13 @@ module Mixpanelable
         Mixpanelable::Config.adapter.send_event(event)
       end
 
+      def track_event_for_request(name, properties = {})
+        return if user_agent_is_bot?
+
+        event = EventBuilder.new(unique_to_request: true, name: name, properties: properties).event
+        Mixpanelable::Config.adapter.send_event(event)
+      end
+
       def user_agent_is_bot?
         Mixpanelable::Bots.bot?(user_agent)
       end
@@ -32,6 +39,10 @@ module Mixpanelable
 
     def track_event_for(active_record, name, properties = {})
       self.class.track_event_for(active_record, name, properties)
+    end
+
+    def track_event_for_request(name, properties = {})
+      self.class.track_event_for_request(name, properties)
     end
   end
 end

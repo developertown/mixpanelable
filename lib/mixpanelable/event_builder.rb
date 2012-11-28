@@ -1,11 +1,12 @@
 module Mixpanelable
   class EventBuilder
-    attr_reader :active_record, :name, :properties
+    attr_reader :active_record, :name, :properties, :unique_to_request
 
     def initialize(args = {})
       @active_record = args[:active_record]
       @name = args[:name]
       @properties = args[:properties]
+      @unique_to_request = args[:unique_to_request]
       self
     end
 
@@ -17,6 +18,8 @@ module Mixpanelable
       case
       when active_record.present?
         distinct_id_for(active_record)
+      when unique_to_request
+        request_uuid
       when current_user.present?
         distinct_id_for(current_user)
       else
@@ -38,6 +41,10 @@ module Mixpanelable
 
     def guest_uuid
       Thread.current[:mixpanelable_guest_uuid]
+    end
+
+    def request_uuid
+      Thread.current[:mixpanelable_request_uuid]
     end
 
     def token
