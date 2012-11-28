@@ -3,7 +3,7 @@ Mixpanelable
 Mixpanelable makes it simple to track Mixpanel events in your Rails backend. While there are other gems (e.g. [mixpanel] and [mixpanel_client]) that provide an api to Mixpanel, Mixpanelable addresses several problems for the Rails developer that are ignored by existing solutions:
 
 - **Event tracking in models (or anywhere).** I find observers a comfortable place to track events. Many events can be tied to model callbacks, such as after_create. Furthermore, some events can only be tracked from models or observers or would otherwise be difficult to track in the controller.
-- **More powerful funnels through more flexible distinct id's.** Sometimes events in funnels don't tie to a user (the "distinct id"). Mixpanel is built to track events initiated by a user, but what if we want to create a funnel from events such as 'Invoice Sent' and 'Invoice Paid'? Clearly, these events do not tie to a user. Mixpanelable's `track_event_for` method lets you tie events to any ActiveRecord, such as an invoice record.
+- **More powerful funnels through more flexible distinct id's.** Sometimes events in funnels don't tie to a user (the "distinct id"). Mixpanel is built to track events initiated by a user, but what if we want to create a funnel from events such as 'Invoice Sent' and 'Invoice Paid'? To do so requires tying the events to the invoice, not the user. Mixpanelable's `track_event_for` method lets you tie events to any ActiveRecord.
 - **Anonymous user tracking.** Need to track events that aren't tied to anyone or anything yet? No problem. Mixpanelable automatically assigns and stores within a cookie a UUID for all visitors.
 
 What is Mixpanel and why should I use it?
