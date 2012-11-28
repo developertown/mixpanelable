@@ -150,7 +150,7 @@ Recently, I wanted to create a funnel that showed the proportion of cache writes
 <% track_event_for_request('Events List Hit') %>
 
 <% cache(@user) do %>
-  <% track_event_for_request('Events List Cache Write')
+  <% track_event_for_request('Events List Cache Write') %>
   <% # My events html... %>
 <% end %>
 ````
