@@ -14,5 +14,6 @@ if defined?(ActionController) and defined?(ActionController::Base)
     around_filter :set_mixpanelable_current_user
     around_filter :set_mixpanelable_guest_uuid
     around_filter :set_mixpanelable_user_agent
+    around_filter :set_mixpanelable_request_uuid
   end
 end

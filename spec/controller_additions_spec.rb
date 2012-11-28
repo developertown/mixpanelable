@@ -87,4 +87,18 @@ describe Mixpanelable::ControllerAdditions do
       Thread.current[:mixpanelable_guest_uuid].should == nil
     end
   end
+
+  describe "#set_mixpanelable_request_uuid" do
+    it "should thread a unique uuid" do
+      @controller.send(:set_mixpanelable_request_uuid) do
+        Thread.current[:mixpanelable_request_uuid].should_not == nil
+      end
+    end
+
+    it "should unset the threaded uuid after yielding" do
+      @controller.send(:set_mixpanelable_request_uuid)
+
+      Thread.current[:mixpanelable_request_uuid].should == nil
+    end
+  end
 end
