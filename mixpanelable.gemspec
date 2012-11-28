@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.summary     = "Track events from your Rails backend easily with Mixpanelable."
   s.author      = "Matt De Leon"
   s.email       = 'matt@developertown.com'
-  s.files       = ["lib/mixpanelable.rb"]
+  s.files       = Dir["lib/**/*"]
 
   s.add_dependency 'resque'
   s.add_dependency 'rails'
