@@ -8,7 +8,7 @@ Mixpanelable makes it simple to track Mixpanel events in your Rails backend. Whi
 
 What is Mixpanel and why should I use it?
 -----------------------------------------
-Mixpanel provides an api to capture actions taken by users and visualize the resulting data. I'v used Mixpanel for a variety of reasons beyond traditional marketing funnels and retention reports. For example, features can be profiled to track performance over time. Funnels can represent a workflow in your system, such as invoice generation and payment.
+Mixpanel provides an api to capture actions taken by users and visualize the resulting data. I've used Mixpanel for a variety of reasons beyond traditional marketing funnels and retention reports. For example, features can be profiled to track performance over time. Funnels can represent a workflow in your system, such as invoice generation and payment.
 
 If you haven't used Mixpanel before, I suggest looking through their [marketing site] and [features guide] for developers.
 
@@ -51,7 +51,7 @@ track_event_for(record, 'Event Name', {
 })
 ````
 
-The event will be tied to the record's type (i.e. class name) and id.
+The event will be tied to the record's type (i.e. class name) and id. This is *important* if you want to create funnels that can't be tied back to a user (see examples below). Get creative!
 
 Examples
 --------
