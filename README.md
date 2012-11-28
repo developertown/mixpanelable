@@ -14,10 +14,14 @@ If you haven't used Mixpanel before, I suggest looking through their [marketing 
 
 Installation
 ------------
-1. Add `gem 'mixpanelable` to your Gemfile.
+1. Add `gem 'mixpanelable'` to your Gemfile.
 2. Run `bundle install`
 3. In an initializer, add `Mixpanelable::Config.token = your_mixpanel_token_here`. You may want to have a different token (i.e. Mixpanel project) for development and production.
 4. Restart your server and start tracking!
+
+Resque Dependency
+-----------------
+To fire events to Mixpanel asynchronously, Mixpanelable currently depends on Resque. If Resque is not set up in your app, then Mixpanelable won't work and will throw exceptions. This is high on the priority list of things to fix!
 
 Tracking Events
 ---------------
@@ -110,27 +114,28 @@ class Invoice < ActiveRecord::Base
   end
 
   def track_sent
-    track_event('Invoice: Sent')
+    track_event_for(self, 'Invoice: Sent')
   end
 
   def track_received
-    track_event('Invoice: Received')
+    track_event_for(self, 'Invoice: Received')
   end
 
   def track_paid
-    track_event('Invoice: Paid')
+    track_event_for(self, 'Invoice: Paid')
   end
 ````
 
 Back in Mixpanel, a funnel can be created that tracks the conversion from Sent -> Received -> Paid. I can then answer questions like, how often are invoices being ignored by customers? What percentage of invoices are getting paid? And this data can be tracked over time to see improvements or regressions.
 
+Note that if these events are tied to the user who performed the action (instead of the invoice), then we wouldn't be able to create the funnel.
+
 Todos
 -----
 
 * Don't rely on curl for api calls
-* Specify custom controller method that holds the current user (default is current_user)
-* Ensure resque is setup, not just specified in the Gemfile
-* Sidekiq integration
+* Provide out-of-the-box support when Resque isn't available (potentially using Delayed Job)
+* Sidekiq support
 
 [other]: https://github.com/zevarito/mixpanel
 [gems]: https://github.com/keolo/mixpanel_client
