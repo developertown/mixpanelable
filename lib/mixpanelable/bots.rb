@@ -105,6 +105,7 @@ module Mixpanelable
       "BaboomBot/1.x.x (+http://www.baboom.us)",
       "BaiduImagespider+(+http://www.baidu.jp/search/s308.html)",
       "BaiDuSpider",
+      "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)",
       "Baiduspider+(+http://help.baidu.jp/system/05.html)",
       "Baiduspider+(+http://www.baidu.com/search/spider.htm)",
       "Baiduspider+(+http://www.baidu.com/search/spider_jp.html)",
