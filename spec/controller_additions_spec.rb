@@ -11,21 +11,26 @@ describe Mixpanelable::ControllerAdditions do
   end
 
   describe "#set_mixpanelable_current_user" do
-    before(:each) do
-      @current_user = 'a user'
-      @controller.stub(:current_user).and_return @current_user
-    end
-
     it "should save the current_user in the thread" do
+      @controller.stub(:current_user).and_return 'a user'
+
       @controller.send(:set_mixpanelable_current_user) do
-        Thread.current[:mixpanelable_current_user].should == @current_user
+        Thread.current[:mixpanelable_current_user].should == 'a user'
       end
     end
 
     it "should unset the current_user in the thread after yielding" do
+      @controller.stub(:current_user).and_return 'a user'
+
       @controller.send(:set_mixpanelable_current_user) { }
 
       Thread.current[:mixpanelable_current_user].should == nil
+    end
+
+    it "should not raise an exception if current_user does not exist" do
+      lambda {
+        @controller.send(:set_mixpanelable_current_user) { }
+      }.should_not raise_error
     end
   end
 

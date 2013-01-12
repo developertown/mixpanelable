@@ -5,7 +5,8 @@ module Mixpanelable
   private
 
     def set_mixpanelable_current_user
-      Thread.current[:mixpanelable_current_user] = current_user
+      Thread.current[:mixpanelable_current_user] = current_user if respond_to?(:current_user)
+
       yield
     ensure
       Thread.current[:mixpanelable_current_user] = nil
@@ -13,6 +14,7 @@ module Mixpanelable
 
     def set_mixpanelable_user_agent
       Thread.current[:mixpanelable_user_agent] = request.env['HTTP_USER_AGENT']
+
       yield
     ensure
       Thread.current[:mixpanelable_user_agent] = nil
@@ -20,6 +22,7 @@ module Mixpanelable
 
     def set_mixpanelable_request_uuid
       Thread.current[:mixpanelable_request_uuid] = SecureRandom.uuid
+
       yield
     ensure
       Thread.current[:mixpanelable_request_uuid] = nil
@@ -27,6 +30,7 @@ module Mixpanelable
 
     def set_mixpanelable_guest_uuid
       Thread.current[:mixpanelable_guest_uuid] = mixpanelable_guest_uuid
+
       yield
     ensure
       Thread.current[:mixpanelable_guest_uuid] = nil
