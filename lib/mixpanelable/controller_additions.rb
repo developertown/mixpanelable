@@ -33,7 +33,7 @@ module Mixpanelable
     end
 
     def mixpanelable_guest_uuid
-      cookies[:mixpanelable_guest_uuid] ||= { value: SecureRandom.uuid, expires: Time.now + (60*60*24*365) }
+      cookies[:mixpanelable_guest_uuid] ||= { value: SecureRandom.uuid, expires: Time.now + (60*60*24*30) }
       cookies[:mixpanelable_guest_uuid]
     end
   end
