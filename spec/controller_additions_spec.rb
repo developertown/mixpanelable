@@ -96,7 +96,7 @@ describe Mixpanelable::ControllerAdditions do
     end
 
     it "should unset the threaded uuid after yielding" do
-      @controller.send(:set_mixpanelable_request_uuid)
+      @controller.send(:set_mixpanelable_request_uuid) { }
 
       Thread.current[:mixpanelable_request_uuid].should == nil
     end
