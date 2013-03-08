@@ -1463,6 +1463,8 @@ module Mixpanelable
       "Zippy v2.0 - Zippyfinder.com",
       "ZoomSpider - wrensoft.com",
       "zspider/0.9-dev http://feedback.redkolibri.com/",
-      "ZyBorg/1.0 (ZyBorg@WISEnut.com; http://www.WISEnut.com)"]
+      "ZyBorg/1.0 (ZyBorg@WISEnut.com; http://www.WISEnut.com)",
+      "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+      "facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)"]
   end
 end
